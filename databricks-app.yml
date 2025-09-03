@@ -1,0 +1,33 @@
+name: flask-todo-app
+description: A Flask-based Todo application deployed on Databricks
+
+# App configuration
+app:
+  # Entry point for the application
+  entry_point: databricks_app:app
+  
+  # Environment variables
+  env:
+    - name: SECRET_KEY
+      value: "your-production-secret-key-here"
+    - name: FLASK_ENV
+      value: "production"
+
+# Resource requirements
+resources:
+  # Minimum resources for a Flask app
+  cpu: "0.5"
+  memory: "1Gi"
+
+# Health check configuration
+health_check:
+  path: "/"
+  port: 8080
+  initial_delay_seconds: 30
+  period_seconds: 10
+
+# Networking
+networking:
+  ingress:
+    - path: "/"
+      port: 8080
